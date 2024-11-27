@@ -10,7 +10,7 @@ public class CoffeeService {
 
     private final AtomicLong counter =  new AtomicLong();
 
-    public Coffee someCall(String name) {
+    public Coffee makeCoffeeObject(String name) {
 
         return new Coffee(counter.incrementAndGet(), name);
     }

@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Optional;
-
 @RestController
 public class CoffeeController {
 
@@ -18,7 +16,7 @@ public class CoffeeController {
     CoffeeService coffeeService;
 
 
-    private static final String DEFAULT_COFFEE_NAME = "latte";
+    protected static final String DEFAULT_COFFEE_NAME = "latte";
 
     @GetMapping("/coffeelover")
     public String coffeeLover (){
@@ -27,16 +25,16 @@ public class CoffeeController {
     }
 
 
-
-    // TODO: Simon used ResponseEntity<Obj>
-    // TODO: Try this as well as trying to return just Coffee
     @GetMapping("/coffee")
-    public ResponseEntity<Coffee> getCoffee (@RequestParam(name="name", defaultValue="DEFAULT_COFFEE_NAME") String nameParam){
+    public ResponseEntity<Coffee> getCoffee (@RequestParam(name="name", defaultValue=DEFAULT_COFFEE_NAME) String nameParam){
 
-        // Method 1: to give default value
-        // public String getCoffee (@RequestParam("name") Optional<String> nameParam){
-        // String coffeeName = nameParam.orElse(DEFAULT_COFFEE_NAME);
-        return new ResponseEntity<>(coffeeService.someCall(nameParam), HttpStatus.OK);
+        // To give default value for request param
+        // Method 1:
+        //      public String getCoffee (@RequestParam("name") Optional<String> nameParam){
+        //      String coffeeName = nameParam.orElse(DEFAULT_COFFEE_NAME);
+        // Method 2:  use defaultValue arg as part of @RequestParam
+
+        return new ResponseEntity<>(coffeeService.makeCoffeeObject(nameParam), HttpStatus.OK);
 
     }
 }
