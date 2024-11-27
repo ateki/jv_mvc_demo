@@ -23,13 +23,12 @@ public class TeaControllerTests {
             "expecting JSON returned with default name:black  along with an auto generated id")
     public void testTeaDefault() throws Exception {
 
-        // TODO: String expectedTeaName = TeaControlller.DEFAULT_TEA_NAME; // default
-        String expectedTeaName = "black";
+        String expectedTeaName = TeaController.DEFAULT_TEA_NAME; // default
         this.mockMvcController
                 .perform(MockMvcRequestBuilders.get("/tea"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(expectedTeaName));
-
+                // TODO: Add id check
     }
 
     @Test
@@ -47,5 +46,7 @@ public class TeaControllerTests {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(expectedTeaName));
 
+                // TODO: Add check to ensure we have an id and
+                //  if possible check it is a positive whole number.
     }
 }
