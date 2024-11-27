@@ -29,4 +29,38 @@ public class CoffeeControllerTests {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string(expectedContent));
     }
+
+    @Test
+    @DisplayName("When /coffee endpoint requested with coffee name param provided in request, expecting JSON returned with name:Latte  along with id:<hard coded to 1 for now>")
+    public void testCoffeeDefault() throws Exception {
+
+        //Arrange, Act and Assert chained within the following statements
+        Integer expectedId = 10;
+        String expectedCoffeeName = "Latte"; // default
+
+        this.mockMvcController.perform(
+                        MockMvcRequestBuilders.get("/coffeelover"))
+
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(expectedId))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(expectedCoffeeName));
+    }
+
+    @Test
+    @DisplayName("When /coffee endpoint requested with coffee name param provided in request, expecting JSON returned with name:Coffee name provided along with id:<hard coded to 1 for now>")
+    public void testCoffeeWithNameParam() throws Exception {
+        //Arrange, Act and Assert chained within the following statements
+        String inputCoffeeName = "Cappucino";
+        Integer expectedId = 10;
+        String expectedCoffeeName = inputCoffeeName; // default
+
+        this.mockMvcController.perform(
+                                MockMvcRequestBuilders.get("/coffeelover")
+                                .param("name", inputCoffeeName))
+
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(expectedId))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(expectedCoffeeName));
+    }
+
 }
