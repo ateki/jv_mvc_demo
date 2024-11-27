@@ -33,8 +33,23 @@ public class HealthControllerTests {
     public void testHealthWithInvalidEndpoint() throws Exception {
         this.mockMvcController
                 .perform(MockMvcRequestBuilders.get("/invalidHealth"))
-                .andExpect(MockMvcResultMatchers.status().isNotFound());
+                .andExpect(MockMvcResultMatchers.status().isNotFound());  // 404 status code
                // .andExpect(MockMvcResultMatchers.content().contentType("application/json"));
+    }
+
+    /*
+        Note  endpoint /actuator/health depends on dependency spring-boot-starter-actuator and various management.endpoint settings in application.properties
+     */
+    @Test
+    @DisplayName("When /actuator/health endpoint requested expecting JSON returned with key=status, value= UP")
+    public void testActuatorHealth() throws Exception {
+
+        String expectedContent = "UP";
+        this.mockMvcController
+                .perform(MockMvcRequestBuilders.get("/actuator/health"))
+                .andExpect(MockMvcResultMatchers.status().isOk())   // 200 status code
+                // status:up
+                .andExpect(MockMvcResultMatchers.jsonPath("$.status").value(expectedContent));
     }
 
 }
