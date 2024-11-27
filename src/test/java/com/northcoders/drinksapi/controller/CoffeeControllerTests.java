@@ -36,13 +36,12 @@ public class CoffeeControllerTests {
 
         //Arrange, Act and Assert chained within the following statements
         Integer expectedId = 10;
-        String expectedCoffeeName = "Latte"; // default
+        String expectedCoffeeName = CoffeeController.DEFAULT_COFFEE_NAME; // default
 
         this.mockMvcController.perform(
-                        MockMvcRequestBuilders.get("/coffeelover"))
+                        MockMvcRequestBuilders.get("/coffee"))
 
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                //.andExpect(MockMvcResultMatchers.jsonPath("$.id").value(expectedId))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(expectedCoffeeName));
     }
 
@@ -51,15 +50,12 @@ public class CoffeeControllerTests {
     public void testCoffeeWithNameParam() throws Exception {
         //Arrange, Act and Assert chained within the following statements
         String inputCoffeeName = "Expresso";
-        Integer expectedId = 10;
         String expectedCoffeeName = inputCoffeeName; // default
 
         this.mockMvcController.perform(
-                                MockMvcRequestBuilders.get("/coffeelover")
+                                MockMvcRequestBuilders.get("/coffee")
                                 .param("name", inputCoffeeName))
-
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                //.andExpect(MockMvcResultMatchers.jsonPath("$.id").value(expectedId))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(expectedCoffeeName));
     }
 
