@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TeaController {
 
-    private static final String DEFAULT_TEA_NAME = "black";
+    protected static final String DEFAULT_TEA_NAME = "black";
     @Autowired
     TeaService teaService;
 

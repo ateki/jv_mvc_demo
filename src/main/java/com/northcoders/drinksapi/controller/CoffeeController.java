@@ -34,6 +34,8 @@ public class CoffeeController {
         //      String coffeeName = nameParam.orElse(DEFAULT_COFFEE_NAME);
         // Method 2:  use defaultValue arg as part of @RequestParam
 
+        // NOTE: Returns ResponseEntity<Coffee> and not just Coffee.
+        // Includes whole HTTP response: status codes, headers, body status.  See TeaController.getTea which just returns the Tea object.
         return new ResponseEntity<>(coffeeService.makeCoffeeObject(nameParam), HttpStatus.OK);
 
     }
